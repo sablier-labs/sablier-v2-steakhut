@@ -1,20 +1,20 @@
 {
-  "name": "sablier-integration-template",
-  "description": "Template for making on-chain integrations with Sablier V2",
+  "name": "sablier-v2-steakhut",
+  "description": "SteakHut vesting campaign with Sablier V2 streams",
   "version": "1.0.0",
   "author": {
     "name": "Sablier Labs Ltd",
     "url": "https://sablier.com"
   },
   "bugs": {
-    "url": "https://github.com/sablier-labs/sablier-integration-template/issues"
+    "url": "https://github.com/sablier-labs/sablier-v2-steakhut/issues"
   },
   "devDependencies": {
     "prettier": "^3.0.0",
     "rimraf": "^5.0.1",
     "solhint": "^3.4.1"
   },
-  "homepage": "https://github.com/sablier-labs/sablier-integration-example#readme",
+  "homepage": "https://github.com/sablier-labs/sablier-v2-steakhut#readme",
   "keywords": [
     "asset-streaming",
     "blockchain",
@@ -32,7 +32,7 @@
   ],
   "license": "GPL-3.0-or-later",
   "private": true,
-  "repository": "github.com:sablier-labs/sablier-integration-template",
+  "repository": "github.com:sablier-labs/sablier-v2-steakhut",
   "scripts": {
     "clean": "rimraf cache out",
     "lint": "pnpm lint:sol && pnpm prettier:check",
