@@ -26,8 +26,8 @@ forge script script/SteakHut.s.sol \
 
 - Run `foundryup` to make sure you are running the latest version of Foundry
 - The command above assumes that you are using a Ledger wallet connected to a computer via USB. If you wish to use a
-  mnemonic instead, you can set it as a `$MNEMONIC` environment variable in a `.env` file. Check out the
-  [`Base`](https://github.com/sablier-labs/v2-core/blob/d1157b49ed4bceeff0c4e437c9f723e88c134d3a/test/Base.t.sol)
+  mnemonic instead, remove the `--ledger` flag and set a `$MNEMONIC` environment variable in a `.env` file. Check out
+  the [`Base`](https://github.com/sablier-labs/v2-core/blob/d1157b49ed4bceeff0c4e437c9f723e88c134d3a/test/Base.t.sol)
   script.
 
 ## References
