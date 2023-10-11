@@ -3,7 +3,7 @@ pragma solidity >=0.8.19;
 
 import { ISablierV2LockupDynamic } from "@sablier/v2-core/src/interfaces/ISablierV2LockupDynamic.sol";
 import { LockupDynamic } from "@sablier/v2-core/src/types/DataTypes.sol";
-import { ud2x18 } from "@sablier/v2-core/src/types/Math.sol";
+import { UD2x18 } from "@sablier/v2-core/src/types/Math.sol";
 import { IERC20 } from "@sablier/v2-core/src/types/Tokens.sol";
 import { BaseScript } from "@sablier/v2-core-script/Base.s.sol";
 import { ISablierV2ProxyTarget } from "@sablier/v2-periphery/src/interfaces/ISablierV2ProxyTarget.sol";
@@ -27,6 +27,8 @@ contract SteakHutScript is BaseScript {
     /*//////////////////////////////////////////////////////////////////////////
                                    SABLIER PARAMS
     //////////////////////////////////////////////////////////////////////////*/
+
+    UD2x18 public constant ONE = UD2x18.wrap(1e18);
 
     // Check the address: https://prbproxy.com/
     IPRBProxyRegistry public constant PROXY_REGISTRY = IPRBProxyRegistry(0x584009E9eDe26e212182c9745F5c000191296a78);
@@ -110,15 +112,15 @@ contract SteakHutScript is BaseScript {
         //
         // For more guidance, see https://docs.sablier.com/concepts/protocol/stream-types#lockup-dynamic
         LockupDynamic.SegmentWithDelta[] memory segments = new LockupDynamic.SegmentWithDelta[](4);
-        segments[0] = LockupDynamic.SegmentWithDelta({ amount: firstAmount, delta: 1 days, exponent: ud2x18(1) });
-        segments[1] = (LockupDynamic.SegmentWithDelta({ amount: 0, delta: 31_449_599 seconds, exponent: ud2x18(1) }));
+        segments[0] = LockupDynamic.SegmentWithDelta({ amount: firstAmount, delta: 1 days, exponent: ONE });
+        segments[1] = (LockupDynamic.SegmentWithDelta({ amount: 0, delta: 31_449_599 seconds, exponent: ONE }));
         segments[2] =
-            (LockupDynamic.SegmentWithDelta({ amount: secondAmount, delta: 31_449_600 seconds, exponent: ud2x18(1) }));
+            (LockupDynamic.SegmentWithDelta({ amount: secondAmount, delta: 31_449_600 seconds, exponent: ONE }));
         segments[3] = (
             LockupDynamic.SegmentWithDelta({
                 amount: thirdAmount,
                 delta: 15_778_476 seconds, // ~6 months
-                exponent: ud2x18(1)
+                exponent: ONE
             })
         );
         return segments;
