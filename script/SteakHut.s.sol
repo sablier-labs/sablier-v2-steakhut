@@ -47,13 +47,13 @@ contract SteakHutScript is BaseScript {
     function run() public virtual broadcast returns (uint256[] memory streamIds) {
         // Deploy an instance of PRBProxy. For more info, see:
         // https://docs.sablier.com/contracts/v2/guides/proxy-architecture/overview
-        IPRBProxy proxy = PROXY_REGISTRY.getProxy({ user: address(this) });
+        IPRBProxy proxy = PROXY_REGISTRY.getProxy({ user: broadcaster });
         if (address(proxy) == address(0)) {
             proxy = PROXY_REGISTRY.deployAndInstallPlugin({ plugin: IPRBProxyPlugin(SABLIER_PROXY_PLUGIN) });
         }
 
         // Approve the proxy to transfer $STEAK
-        uint256 allowance = STEAK.allowance({ owner: address(this), spender: address(proxy) });
+        uint256 allowance = STEAK.allowance({ owner: broadcaster, spender: address(proxy) });
         if (allowance < TOTAL_TRANSFER_AMOUNT) {
             STEAK.approve({ spender: address(proxy), amount: TOTAL_TRANSFER_AMOUNT });
         }
