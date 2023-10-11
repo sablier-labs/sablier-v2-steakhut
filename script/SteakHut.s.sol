@@ -132,37 +132,37 @@ contract SteakHutScript is BaseScript {
         batch[0].sender = address(proxy);
         batch[0].recipient = address(0xa912A42A40BE74A0ab8a1C9a4f970590AC733Fe7);
         batch[0].totalAmount = AMOUNT_0;
-        batch[0].cancelable = false;
+        batch[0].cancelable = true;
         batch[0].segments = getSegmentsForUser({ userIndex: 0 });
 
         batch[1].sender = address(proxy);
         batch[1].recipient = address(0xd24fa760E600081370c2730365B646A0bE46FCd0);
         batch[1].totalAmount = AMOUNT_1;
-        batch[1].cancelable = false;
+        batch[1].cancelable = true;
         batch[1].segments = getSegmentsForUser({ userIndex: 1 });
 
         batch[2].sender = address(proxy);
         batch[2].recipient = address(0xfBADAAb2950349a6AD82B2Eb9060E0cd008d4d2C);
         batch[2].totalAmount = AMOUNT_2;
-        batch[2].cancelable = false;
+        batch[2].cancelable = true;
         batch[2].segments = getSegmentsForUser({ userIndex: 2 });
 
         batch[3].sender = address(proxy);
         batch[3].recipient = address(0x17ECe27ffb9053C797e1Aea6eebc4F9A9BcD6828);
         batch[3].totalAmount = AMOUNT_3;
-        batch[3].cancelable = false;
+        batch[3].cancelable = true;
         batch[3].segments = getSegmentsForUser({ userIndex: 3 });
 
         batch[4].sender = address(proxy);
         batch[4].recipient = address(0xED6bbDA3b9bDcF9Da51D24493c3Cd4F7141A6b7e);
         batch[4].totalAmount = AMOUNT_4;
-        batch[4].cancelable = false;
+        batch[4].cancelable = true;
         batch[4].segments = getSegmentsForUser({ userIndex: 4 });
 
         batch[5].sender = address(proxy);
         batch[5].recipient = address(0x11519Af72D6a9f9eE339afD0Aa9925d199a8cc79);
         batch[5].totalAmount = AMOUNT_5;
-        batch[5].cancelable = false;
+        batch[5].cancelable = true;
         batch[5].segments = getSegmentsForUser({ userIndex: 5 });
 
         return batch;
