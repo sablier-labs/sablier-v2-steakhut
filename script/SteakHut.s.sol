@@ -15,12 +15,13 @@ contract SteakHutScript is BaseScript {
                                     STEAK PARAMS
     //////////////////////////////////////////////////////////////////////////*/
 
-    uint128 public constant AMOUNT_0 = 320_901.64e18;
-    uint128 public constant AMOUNT_1 = 122_950.82e18;
-    uint128 public constant AMOUNT_2 = 81_967.21e18;
-    uint128 public constant AMOUNT_3 = 32_786.89e18;
-    uint128 public constant AMOUNT_4 = 8196.72e18;
-    uint128 public constant AMOUNT_5 = 8196.72e18;
+    // The subtracted amounts represented the 5% that had been streamed in previous streams.
+    uint128 public constant AMOUNT_0 = 320_901.64e18 - 16_045.082e18;
+    uint128 public constant AMOUNT_1 = 122_950.82e18 - 6147.541e18;
+    uint128 public constant AMOUNT_2 = 81_967.21e18 - 4098.3605e18;
+    uint128 public constant AMOUNT_3 = 32_786.89e18 - 1639.3445e18;
+    uint128 public constant AMOUNT_4 = 8196.72e18 - 409.836e18;
+    uint128 public constant AMOUNT_5 = 8196.72e18 - 409.836e18;
     IERC20 public constant STEAK = IERC20(0xb279f8DD152B99Ec1D84A489D32c35bC0C7F5674);
     uint128 public constant TOTAL_TRANSFER_AMOUNT = 575_000e18;
 
@@ -72,51 +73,44 @@ contract SteakHutScript is BaseScript {
     }
 
     function getSegmentsForUser(uint256 userIndex) public pure returns (LockupDynamic.SegmentWithDelta[] memory) {
-        uint128 firstAmount;
         uint128 secondAmount;
         uint128 thirdAmount;
 
         if (userIndex == 0) {
-            firstAmount = 16_045.082e18; // 5% of 320,901.64
             secondAmount = 101_597.459224e18; // 31.66% of 320,901.64
-            thirdAmount = AMOUNT_0 - firstAmount - secondAmount; // remainder
+            thirdAmount = AMOUNT_0 - secondAmount; // remainder
         } else if (userIndex == 1) {
-            firstAmount = 6147.541e18; // 5% of 122,950.82
             secondAmount = 38_926.229612e18; // 31.66% of 122,950.82
-            thirdAmount = AMOUNT_1 - firstAmount - secondAmount; // remainder
+            thirdAmount = AMOUNT_1 - secondAmount; // remainder
         } else if (userIndex == 2) {
-            firstAmount = 4098.3605e18; // 5% of 81,967.21
             secondAmount = 25_950.818686e18; // 31.66% of 81,967.21
-            thirdAmount = AMOUNT_2 - firstAmount - secondAmount; // remainder
+            thirdAmount = AMOUNT_2 - secondAmount; // remainder
         } else if (userIndex == 3) {
-            firstAmount = 1639.3445e18; // 5% of 32,786.89
             secondAmount = 10_380.329374e18; // 31.66% of 32,786.89
-            thirdAmount = AMOUNT_3 - firstAmount - secondAmount; // remainder
+            thirdAmount = AMOUNT_3 - secondAmount; // remainder
         } else if (userIndex == 4) {
-            firstAmount = 409.836e18; // 5% of 8196.72
             secondAmount = 2595.081552e18; // 31% of 8196.72
-            thirdAmount = AMOUNT_4 - firstAmount - secondAmount; // remainder
+            thirdAmount = AMOUNT_4 - secondAmount; // remainder
         } else if (userIndex == 5) {
-            firstAmount = 409.836e18; // 5% of 8196.72
             secondAmount = 2595.081552e18; // 31% of 8196.72
-            thirdAmount = AMOUNT_5 - firstAmount - secondAmount; // remainder
+            thirdAmount = AMOUNT_5 - secondAmount; // remainder
         } else {
             revert("Invalid user index");
         }
 
-        // The following four segments will produce the following effect:
+        // The following three segments will produce the following effect:
         //
-        //   - 5% unlock after 1 day
         //   - 31.66% unlock after 1 year cliff
         //   - 63.34% linear streaming for 6 months
         //
+        // Recall that 5% had been paid in previous streams.
+        //
         // For more guidance, see https://docs.sablier.com/concepts/protocol/stream-types#lockup-dynamic
-        LockupDynamic.SegmentWithDelta[] memory segments = new LockupDynamic.SegmentWithDelta[](4);
-        segments[0] = LockupDynamic.SegmentWithDelta({ amount: firstAmount, delta: 1 days, exponent: ONE });
-        segments[1] = (LockupDynamic.SegmentWithDelta({ amount: 0, delta: 31_449_599 seconds, exponent: ONE }));
-        segments[2] =
+        LockupDynamic.SegmentWithDelta[] memory segments = new LockupDynamic.SegmentWithDelta[](3);
+        segments[0] = (LockupDynamic.SegmentWithDelta({ amount: 0, delta: 31_449_599 seconds, exponent: ONE }));
+        segments[1] =
             (LockupDynamic.SegmentWithDelta({ amount: secondAmount, delta: 31_449_600 seconds, exponent: ONE }));
-        segments[3] = (
+        segments[2] = (
             LockupDynamic.SegmentWithDelta({
                 amount: thirdAmount,
                 delta: 15_778_476 seconds, // ~6 months
