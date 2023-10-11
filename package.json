@@ -10,9 +10,9 @@
     "url": "https://github.com/sablier-labs/sablier-v2-steakhut/issues"
   },
   "devDependencies": {
-    "prettier": "^3.0.0",
-    "rimraf": "^5.0.1",
-    "solhint": "^3.4.1"
+    "prettier": "^3.0.3",
+    "rimraf": "^5.0.5",
+    "solhint": "^3.6.2"
   },
   "homepage": "https://github.com/sablier-labs/sablier-v2-steakhut#readme",
   "keywords": [
